@@ -1,8 +1,8 @@
 {
-  "name": "@isildur/api",
+  "name": "@isildur-testing/api",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "scripts": {
     "build": "tsup src/index.ts --format cjs --dts",
     "dev": "npm run build -- --watch",
