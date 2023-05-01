@@ -2,6 +2,7 @@
   "name": "@isildur/api",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "version": "0.0.0",
   "scripts": {
     "build": "tsup src/index.ts --format cjs --dts",
     "dev": "npm run build -- --watch",
@@ -9,5 +10,8 @@
   },
   "dependencies": {
     "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "tsup": "^6.7.0"
   }
 }
