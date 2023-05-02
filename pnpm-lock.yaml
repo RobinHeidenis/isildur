@@ -50,6 +50,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@isildur-testing/api':
+        specifier: workspace:*
+        version: link:../api
       '@types/jest':
         specifier: ^29.5.1
         version: 29.5.1

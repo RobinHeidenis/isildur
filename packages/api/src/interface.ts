@@ -1,12 +1,16 @@
-export interface Isildur {
-    runner: 'jest' | 'mocha';
+export type TestRunner = 'jest' | 'mocha';
+
+export interface IsildurClass {
+    runner: TestRunner;
 
     runAllTests(): TestResult[];
 }
 
+export type TestResultStatus = 'pass' | 'fail';
+
 interface BaseTestResult {
     name: string;
-    status: 'pass' | 'fail';
+    status: TestResultStatus;
     file: string;
     duration: number;
 }
