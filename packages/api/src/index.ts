@@ -1,4 +1,6 @@
-import { add } from "./add";
-import { sub } from "./sub";
+import { TestResult, Isildur } from "~/interface";
 
-export { add, sub };
+export type {
+    TestResult,
+    Isildur
+}
