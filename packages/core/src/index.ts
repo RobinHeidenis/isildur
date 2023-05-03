@@ -1,3 +1,5 @@
-export const test = () => {
-    console.log("Test");
-}
+import { Isildur } from "~/isildur";
+
+export { Isildur };
+
+export default Isildur;
