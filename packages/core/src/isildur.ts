@@ -1,14 +1,16 @@
-import type { TestResult } from '@isildur-testing/api';
+import type { TestSuite } from '@isildur-testing/api';
+import { JestRunner } from '@isildur-testing/jest';
 import { CoreIsildurClass, TestRunner } from '~/interface';
 
 export class Isildur implements CoreIsildurClass {
-    runner: TestRunner;
+    constructor(public runner: TestRunner) {}
 
-    constructor(runner: TestRunner) {
-        this.runner = runner;
-    }
+    async runAllTests(): Promise<TestSuite[]> {
+        if (this.runner === 'jest') {
+            const runner = new JestRunner();
+            return runner.runAllTests();
+        }
 
-    runAllTests(): TestResult[] {
-        return [];
+        else return [];
     }
 }
