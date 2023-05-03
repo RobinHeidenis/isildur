@@ -1,8 +1,4 @@
-export type TestRunner = 'jest' | 'mocha';
-
-export interface IsildurClass {
-    runner: TestRunner;
-
+export interface IsildurTestRunner {
     runAllTests(): TestResult[];
 }
 

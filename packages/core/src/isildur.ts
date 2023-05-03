@@ -1,6 +1,7 @@
-import type { IsildurClass, TestResult, TestRunner } from '@isildur-testing/api';
+import type { TestResult } from '@isildur-testing/api';
+import { CoreIsildurClass, TestRunner } from '~/interface';
 
-export class Isildur implements IsildurClass {
+export class Isildur implements CoreIsildurClass {
     runner: TestRunner;
 
     constructor(runner: TestRunner) {
