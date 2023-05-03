@@ -1,6 +1,7 @@
-import { TestResult, Isildur } from "~/interface";
+import { IsildurTestRunner, TestResult, TestResultStatus } from "~/interface";
 
 export type {
     TestResult,
-    Isildur
-}
+    IsildurTestRunner,
+    TestResultStatus
+};
