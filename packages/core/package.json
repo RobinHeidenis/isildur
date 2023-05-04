@@ -14,14 +14,17 @@
     "test": "jest"
   },
   "dependencies": {
-    "typescript": "^5.0.4",
-    "tsup": "^6.7.0",
-    "@types/node": "^18.16.3",
+    "@isildur-testing/api": "workspace:*",
+    "@isildur-testing/jest": "^0.0.2"
+  },
+  "devDependencies": {
     "@types/jest": "^29.5.1",
-    "jest": "^29.5.0",
-    "jest-preset": "workspace:*",
+    "@types/node": "^18.16.3",
     "tsconfig": "workspace:*",
-    "@isildur-testing/api": "workspace:*"
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4",
+    "jest": "^29.5.0",
+    "jest-preset": "workspace:*"
   },
   "jest": {
     "preset": "jest-preset"
