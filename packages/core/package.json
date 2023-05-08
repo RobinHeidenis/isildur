@@ -1,9 +1,9 @@
 {
   "name": "@isildur-testing/core",
   "version": "0.0.1",
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "module": "dist/index.js",
+  "module": "dist/index.mjs",
   "type": "module",
   "files": [
     "dist/**"
@@ -15,16 +15,17 @@
   },
   "dependencies": {
     "@isildur-testing/api": "workspace:*",
-    "@isildur-testing/jest": "^0.0.2"
+    "@isildur-testing/jest": "^0.1.0",
+    "@isildur-testing/mocha": "^0.1.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
     "@types/node": "^18.16.3",
+    "jest": "^29.5.0",
+    "jest-preset": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "^6.7.0",
-    "typescript": "^5.0.4",
-    "jest": "^29.5.0",
-    "jest-preset": "workspace:*"
+    "typescript": "^5.0.4"
   },
   "jest": {
     "preset": "jest-preset"
