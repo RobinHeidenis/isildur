@@ -1,5 +1,12 @@
 # @isildur-testing/core
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [b7d8985]
+  - @isildur-testing/api@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @isildur-testing/api
 
+## 0.2.0
+
+### Minor Changes
+
+- b7d8985: Added method for discovering all tests
+
 ## 0.1.0
 
 ### Minor Changes
