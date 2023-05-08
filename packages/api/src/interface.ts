@@ -11,7 +11,6 @@ export interface TestSuite{
     numFailing: number;
     numPassing: number;
     numSkipped: number;
-    numTodo: number;
     tests: TestResult[];
 }
 
