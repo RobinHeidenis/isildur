@@ -1,5 +1,11 @@
 # @isildur-testing/core
 
+## 0.1.1
+
+### Patch Changes
+
+- ebb3afd: Bumped @isildur-testing/jest to version 0.1.1, bumped @isildur-testing/mocha to version 0.2.0
+
 ## 0.1.0
 
 ### Minor Changes
