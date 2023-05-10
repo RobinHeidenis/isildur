@@ -1,5 +1,11 @@
 # @isildur-testing/api
 
+## 0.2.1
+
+### Patch Changes
+
+- 4dfccee: Changed typing for BaseTestSuite to contain an array of BaseTestSuites
+
 ## 0.2.0
 
 ### Minor Changes
