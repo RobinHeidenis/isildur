@@ -9,20 +9,21 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup-node src/index.ts --format cjs,esm --dts",
+    "build": "rimraf ./dist && tsup-node src/index.ts --format cjs,esm --dts",
     "dev": "npm run build -- --watch",
     "test": "jest"
   },
   "dependencies": {
     "@isildur-testing/api": "workspace:*",
-    "@isildur-testing/jest": "^0.1.1",
-    "@isildur-testing/mocha": "^0.2.0"
+    "@isildur-testing/jest": "^0.2.0",
+    "@isildur-testing/mocha": "^0.3.1"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
     "@types/node": "^18.16.3",
     "jest": "^29.5.0",
     "jest-preset": "workspace:*",
+    "rimraf": "^5.0.0",
     "tsconfig": "workspace:*",
     "tsup": "^6.7.0",
     "typescript": "^5.0.4"
