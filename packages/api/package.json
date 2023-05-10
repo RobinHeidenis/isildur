@@ -6,7 +6,8 @@
   "type": "module",
   "version": "0.2.0",
   "files": [
-    "dist/**"
+    "dist/**",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "rimraf ./dist && tsup-node src/index.ts --format cjs,esm --dts",
