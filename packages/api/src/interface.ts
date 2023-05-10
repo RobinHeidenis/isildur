@@ -8,7 +8,7 @@ export type TestResultStatus = 'pass' | 'fail' | 'skipped';
 export interface BaseTestSuite {
     name: string;
     file: string;
-    suites: TestSuite[];
+    suites: BaseTestSuite[];
     tests: Omit<TestResult, 'status'>[];
 }
 
@@ -17,6 +17,7 @@ export interface TestSuite extends BaseTestSuite {
     numFailing: number;
     numPassing: number;
     numSkipped: number;
+    suites: TestSuite[];
     tests: TestResult[];
 }
 

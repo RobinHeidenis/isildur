@@ -1,20 +1,25 @@
-import type { TestSuite } from '@isildur-testing/api';
+import type { BaseTestSuite, TestSuite } from '@isildur-testing/api';
 import { JestRunner } from '@isildur-testing/jest';
 import { MochaRunner } from '@isildur-testing/mocha';
 import { CoreIsildurClass, TestRunner } from '~/interface';
 
 export class Isildur implements CoreIsildurClass {
-    constructor(public runner: TestRunner) {}
+    testRunner: MochaRunner | JestRunner;
+    constructor(public runner: TestRunner) {
+        if (runner === 'jest') {
+            this.testRunner = new JestRunner();
+        } else if (runner === 'mocha') {
+            this.testRunner = new MochaRunner();
+        } else {
+            throw new Error(`Unknown test runner: ${runner}`);
+        }
+    }
 
     async runAllTests(): Promise<TestSuite[]> {
-        if (this.runner === 'jest') {
-            const runner = new JestRunner();
-            return runner.runAllTests();
-        }
-        else if (this.runner === 'mocha') {
-            const runner = new MochaRunner();
-            return runner.runAllTests();
-        }
-        throw new Error(`Unknown test runner: ${this.runner}`);
+        return this.testRunner.runAllTests();
+    }
+
+    async discoverAllTests(): Promise<BaseTestSuite[]> {
+        return this.testRunner.discoverAllTests();
     }
 }

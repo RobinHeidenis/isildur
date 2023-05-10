@@ -6,21 +6,23 @@
   "type": "module",
   "version": "0.2.0",
   "files": [
-    "dist/**"
+    "dist/**",
+    "CHANGELOG.md"
   ],
   "scripts": {
-    "build": "tsup-node src/index.ts --format cjs,esm --dts",
+    "build": "rimraf ./dist && tsup-node src/index.ts --format cjs,esm --dts",
     "dev": "npm run build -- --watch",
     "test": "jest"
   },
   "devDependencies": {
-    "@types/node": "^18.16.3",
     "@types/jest": "^29.5.1",
+    "@types/node": "^18.16.3",
     "jest": "^29.5.0",
     "jest-preset": "workspace:*",
+    "rimraf": "^5.0.0",
     "tsconfig": "workspace:*",
-    "typescript": "^5.0.4",
-    "tsup": "^6.7.0"
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4"
   },
   "jest": {
     "preset": "jest-preset"
