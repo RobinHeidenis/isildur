@@ -5,7 +5,7 @@
   "tasks": [
     {
       "type": "npm",
-      "path": "packages/isildur",
+      "path": "packages/extension",
       "script": "watch",
       "problemMatcher": "$tsc-watch",
       "isBackground": true,

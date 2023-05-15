@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@isildur-testing/api": "workspace:*",
-    "@isildur-testing/jest": "^0.2.1",
+    "@isildur-testing/jest": "^0.2.0",
     "@isildur-testing/mocha": "^0.3.2"
   },
   "devDependencies": {
