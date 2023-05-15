@@ -13,15 +13,7 @@ if (vscode.workspace.workspaceFolders) {
   process.chdir(vscode.workspace.workspaceFolders[0]!.uri.fsPath);
 }
 
-export async function activate(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand("isildur.helloWorld", () => {
-    vscode.window.showInformationMessage(
-      "Hello World from isildur! very cool gamer extension haha"
-    );
-  });
-
-  context.subscriptions.push(disposable);
-
+export async function activate() {
   const results = await runner.discoverAllTests();
 
   results.forEach((suite) => {
