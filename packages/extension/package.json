@@ -1,6 +1,6 @@
 {
   "name": "@isildur-testing/extension",
-  "displayName": "isildur",
+  "displayName": "Isildur",
   "description": "Display and run your tests, no matter what runner you're using! (currently support Jest and Mocha)",
   "version": "0.0.1",
   "engines": {
@@ -11,10 +11,20 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
+    "configuration": [
       {
-        "command": "isildur.helloWorld",
-        "title": "Hello World"
+        "title": "Isildur",
+        "properties": {
+          "isildur.testRunner": {
+            "type": "string",
+            "default": "Mocha",
+            "enum": [
+              "Jest",
+              "Mocha"
+            ],
+            "description": "The test runner you're using"
+          }
+        }
       }
     ]
   },
