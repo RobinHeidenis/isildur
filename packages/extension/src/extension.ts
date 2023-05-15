@@ -1,12 +1,13 @@
 import type { BaseTestSuite, TestResult } from "@isildur-testing/api";
 import { Isildur } from "@isildur-testing/core";
+import path from "node:path";
 import * as vscode from "vscode";
 
 const testController = vscode.tests.createTestController(
   "com.isildur.testController",
   "Isildur Test Controller"
 );
-const runner = new Isildur("jest");
+const runner = new Isildur("mocha");
 
 if (vscode.workspace.workspaceFolders) {
   process.chdir(vscode.workspace.workspaceFolders[0]!.uri.fsPath);
@@ -24,26 +25,17 @@ export async function activate(context: vscode.ExtensionContext) {
   const results = await runner.discoverAllTests();
 
   results.forEach((suite) => {
-    const regex = new RegExp(
-      vscode.workspace.workspaceFolders![0]!.uri.fsPath.replace(/\\/gi, "/"),
-      "gi"
-    );
-    const label = suite.file
-      .replace(/\\/gi, "/")
-      .replace(regex, "")
-      .replace("/", "");
-    console.log(label);
-    console.log(suite.file.match(regex));
+    const label = getLabel(suite.file);
 
     const rootItem = testController.createTestItem(
       suite.file + suite.name,
       label,
-      getTestURI(suite.file)
+      getTestURI(label)
     );
     const suiteItem = testController.createTestItem(
       suite.file + suite.name,
       suite.name,
-      getTestURI(suite.file)
+      getTestURI(label)
     );
     addTestsToTestItem(suiteItem, suite.tests);
     addSuitesToTestItem(suiteItem, suite.suites);
@@ -58,7 +50,11 @@ const addTestsToTestItem = (
 ) => {
   tests.forEach((test) => {
     testItem.children.add(
-      testController.createTestItem(test.name, test.name, getTestURI(test.file))
+      testController.createTestItem(
+        test.name,
+        test.name,
+        getTestURI(getLabel(test.file))
+      )
     );
   });
 };
@@ -71,7 +67,7 @@ const addSuitesToTestItem = (
     const suiteItem = testController.createTestItem(
       suite.file + suite.name,
       suite.name,
-      getTestURI(suite.file)
+      getTestURI(getLabel(suite.file))
     );
     addTestsToTestItem(suiteItem, suite.tests);
     addSuitesToTestItem(suiteItem, suite.suites);
@@ -84,5 +80,18 @@ const getTestURI = (file: string) => {
     vscode.workspace.workspaceFolders![0]!.uri.fsPath + "/" + file
   );
 };
+
+function getLabel(testPath: string) {
+  const projectRoot = path.normalize(
+    vscode.workspace.workspaceFolders![0]!.uri.fsPath
+  );
+  const suitePath = path.normalize(testPath);
+  const suiteFile = suitePath.charAt(0).toLowerCase() + suitePath.slice(1);
+
+  const label = suiteFile.startsWith(projectRoot)
+    ? suiteFile.split(projectRoot)[1]
+    : suiteFile;
+  return label[0] === path.sep ? label.slice(path.sep.length) : label;
+}
 
 export function deactivate() {}
