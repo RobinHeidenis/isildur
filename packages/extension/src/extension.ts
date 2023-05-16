@@ -26,6 +26,18 @@ export async function activate() {
   results.forEach((suite) => {
     const label = getLabel(suite.file);
 
+    if (suite.name === label) {
+      const rootItem = testController.createTestItem(
+        suite.file + suite.name,
+        label,
+        getTestURI(label)
+      );
+      addTestsToTestItem(rootItem, suite.tests);
+      addSuitesToTestItem(rootItem, suite.suites);
+      testController.items.add(rootItem);
+      return;
+    }
+
     const rootItem = testController.createTestItem(
       suite.file + suite.name,
       label,
