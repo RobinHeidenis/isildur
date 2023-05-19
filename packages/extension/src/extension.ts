@@ -7,13 +7,20 @@ const testController = vscode.tests.createTestController(
   "com.isildur.testController",
   "Isildur Test Controller"
 );
-const runner = new Isildur("mocha");
 
 if (vscode.workspace.workspaceFolders) {
   process.chdir(vscode.workspace.workspaceFolders[0]!.uri.fsPath);
 }
 
 export async function activate() {
+  let workspaceRunnerSetting = vscode.workspace
+    .getConfiguration("isildur")
+    .get("testRunner") as string | undefined;
+
+  workspaceRunnerSetting = workspaceRunnerSetting ? workspaceRunnerSetting.toLowerCase() : "mocha";
+
+  const runner = new Isildur(workspaceRunnerSetting as  "mocha" | "jest");
+
   const results = await runner.discoverAllTests();
 
   results.forEach((suite) => {
