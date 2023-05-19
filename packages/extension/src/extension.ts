@@ -17,9 +17,11 @@ export async function activate() {
     .getConfiguration("isildur")
     .get("testRunner") as string | undefined;
 
-  workspaceRunnerSetting = workspaceRunnerSetting ? workspaceRunnerSetting.toLowerCase() : "mocha";
+  workspaceRunnerSetting = workspaceRunnerSetting
+    ? workspaceRunnerSetting.toLowerCase()
+    : "mocha";
 
-  const runner = new Isildur(workspaceRunnerSetting as  "mocha" | "jest");
+  const runner = new Isildur(workspaceRunnerSetting as "mocha" | "jest");
 
   const results = await runner.discoverAllTests();
 
