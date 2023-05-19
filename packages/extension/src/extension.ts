@@ -17,14 +17,28 @@ export async function activate() {
     .getConfiguration("isildur")
     .get("testRunner") as string | undefined;
 
-  workspaceRunnerSetting = workspaceRunnerSetting ? workspaceRunnerSetting.toLowerCase() : "mocha";
+  workspaceRunnerSetting = workspaceRunnerSetting
+    ? workspaceRunnerSetting.toLowerCase()
+    : "mocha";
 
-  const runner = new Isildur(workspaceRunnerSetting as  "mocha" | "jest");
+  const runner = new Isildur(workspaceRunnerSetting as "mocha" | "jest");
 
   const results = await runner.discoverAllTests();
 
   results.forEach((suite) => {
     const label = getLabel(suite.file);
+
+    if (suite.name === label) {
+      const rootItem = testController.createTestItem(
+        suite.file + suite.name,
+        label,
+        getTestURI(label)
+      );
+      addTestsToTestItem(rootItem, suite.tests);
+      addSuitesToTestItem(rootItem, suite.suites);
+      testController.items.add(rootItem);
+      return;
+    }
 
     const rootItem = testController.createTestItem(
       suite.file + suite.name,
