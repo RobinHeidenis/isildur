@@ -57,11 +57,11 @@ importers:
         specifier: workspace:*
         version: link:../api
       '@isildur-testing/jest':
-        specifier: ^0.2.0
-        version: 0.2.1
+        specifier: ^0.3.0
+        version: 0.3.0
       '@isildur-testing/mocha':
-        specifier: ^0.3.2
-        version: 0.3.2
+        specifier: ^0.4.0
+        version: 0.4.0
     devDependencies:
       '@types/jest':
         specifier: ^29.5.1
@@ -932,15 +932,15 @@ packages:
     resolution: {integrity: sha512-UQAjFiEdKfPVS/GrEeHZmJI/fkTdyccUoOl43V5uSFu4t3XMFjx+h3TCDJFZaI6YOF83r8ALObF2AuAFxVrtrQ==}
     dev: false
 
-  /@isildur-testing/jest@0.2.1:
-    resolution: {integrity: sha512-UBZMpLVBuJ9bWpU2Xeg6JXWIPYfUj5gwiHttLs6E07LoMwDzeR0EbUplqVL/nvw/1dhcijuqJ3U6i5oPY00QdA==}
+  /@isildur-testing/jest@0.3.0:
+    resolution: {integrity: sha512-Akyv8oklYclIl4+20ymmK/XO0gLInWyWcfEcxmQUOa/1DxLfM9Ln3scSKy0jXFY19TcMss4B6N7sq7pSnkSdCQ==}
     dependencies:
       '@changesets/cli': 2.26.1
       '@isildur-testing/api': 0.2.1
     dev: false
 
-  /@isildur-testing/mocha@0.3.2:
-    resolution: {integrity: sha512-EsBbqF76X/My3+GYcLXyCE5RX+2EAAjEYOdvJeNaaDQriR3GpTGs+0j+svszQuczM8q2fw00Ox6DxSKH/Hjgig==}
+  /@isildur-testing/mocha@0.4.0:
+    resolution: {integrity: sha512-DzqCyxwRjUgHAoNEZhKZrJXl5gb1EGd3YxIws2bWlEc51EmDIthhrBFZsVukIuRKUO8xgzOa83Q/Bxd85aV4Bg==}
     dependencies:
       '@changesets/cli': 2.26.1
       '@isildur-testing/api': 0.2.1
