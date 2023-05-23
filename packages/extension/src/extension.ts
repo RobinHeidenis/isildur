@@ -182,7 +182,7 @@ const runHandler = async (
   });
 
   const runner = new Isildur(workspaceRunnerSetting as "mocha" | "jest");
-  const results = await runner.discoverAllTests();
+  const results = await runner.runAllTests();
   const resultsWithIds = generateUniqueIDs(results);
   const flatResults = flattenResults(resultsWithIds);
 
