@@ -1,5 +1,5 @@
 ---
-"@isildur-testing/extension": patch
+"isildur-testing": patch
 ---
 
 Initial setup

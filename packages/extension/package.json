@@ -1,5 +1,5 @@
 {
-  "name": "@isildur-testing/extension",
+  "name": "isildur-testing",
   "displayName": "Isildur",
   "description": "Display and run your tests, no matter what runner you're using! (currently support Jest and Mocha)",
   "version": "0.0.1",
