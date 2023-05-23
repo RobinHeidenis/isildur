@@ -207,8 +207,6 @@ const runHandler = async (
     }
   });
 
-  console.log("all done");
-
   run.end();
 };
 
