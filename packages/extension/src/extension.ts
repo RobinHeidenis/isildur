@@ -1,7 +1,22 @@
-import type { BaseTestSuite, TestResult } from "@isildur-testing/api";
+import type {
+  BaseTestSuite,
+  TestSuite as RanTestSuite,
+  TestResult,
+} from "@isildur-testing/api";
 import { Isildur } from "@isildur-testing/core";
 import path from "node:path";
 import * as vscode from "vscode";
+import { TestItem } from "vscode";
+
+type TestResultWithId = Omit<TestResult, "status" | "duration"> & {
+  id: string;
+};
+
+type TestSuite = Omit<BaseTestSuite, "tests" | "suites"> & {
+  id: string;
+  tests: TestResultWithId[];
+  suites: TestSuite[];
+};
 
 const testController = vscode.tests.createTestController(
   "com.isildur.testController",
@@ -25,12 +40,14 @@ export async function activate() {
 
   const results = await runner.discoverAllTests();
 
-  results.forEach((suite) => {
+  const resultsWithIds = generateUniqueIDs(results);
+
+  resultsWithIds.forEach((suite) => {
     const label = getLabel(suite.file);
 
     if (suite.name === label) {
       const rootItem = testController.createTestItem(
-        suite.file + suite.name,
+        suite.id,
         label,
         getTestURI(label)
       );
@@ -41,12 +58,12 @@ export async function activate() {
     }
 
     const rootItem = testController.createTestItem(
-      suite.file + suite.name,
+      suite.id,
       label,
       getTestURI(label)
     );
     const suiteItem = testController.createTestItem(
-      suite.file + suite.name,
+      suite.id,
       suite.name,
       getTestURI(label)
     );
@@ -59,12 +76,12 @@ export async function activate() {
 
 const addTestsToTestItem = (
   testItem: vscode.TestItem,
-  tests: Omit<TestResult, "status">[]
+  tests: TestResultWithId[]
 ) => {
   tests.forEach((test) => {
     testItem.children.add(
       testController.createTestItem(
-        test.name,
+        test.id,
         test.name,
         getTestURI(getLabel(test.file))
       )
@@ -74,11 +91,11 @@ const addTestsToTestItem = (
 
 const addSuitesToTestItem = (
   testItem: vscode.TestItem,
-  suites: BaseTestSuite[]
+  suites: TestSuite[]
 ) => {
   suites.forEach((suite) => {
     const suiteItem = testController.createTestItem(
-      suite.file + suite.name,
+      suite.id,
       suite.name,
       getTestURI(getLabel(suite.file))
     );
@@ -106,5 +123,114 @@ function getLabel(testPath: string) {
     : suiteFile;
   return label[0] === path.sep ? label.slice(path.sep.length) : label;
 }
+
+const generateUniqueIDs = (result: (BaseTestSuite | RanTestSuite)[]) => {
+  const assignID = (
+    item:
+      | BaseTestSuite
+      | RanTestSuite
+      | Omit<TestResult, "status" | "duration">
+      | TestResult,
+    parentID: string
+  ) => {
+    const baseID = parentID ? parentID + "-" : "";
+    const id = baseID + generateIDFromProperties(item.name, item.file);
+    const suites: TestSuite[] =
+      "suites" in item && item.suites
+        ? item.suites.map((suite) => assignID(suite, id))
+        : [];
+    const tests: TestResultWithId[] =
+      "tests" in item && item.tests
+        ? item.tests.map((test) => assignID(test, id))
+        : [];
+
+    return { ...item, id, suites, tests };
+  };
+
+  const generateIDFromProperties = (name: string, file: string) => {
+    const sanitized = name.replace(/\s+/g, "-").toLowerCase();
+    return sanitized + "-" + file;
+  };
+
+  return result.map((item) => assignID(item, ""));
+};
+
+const runHandler = async (
+  shouldDebug: boolean,
+  request: vscode.TestRunRequest,
+  token: vscode.CancellationToken
+) => {
+  const run = testController.createTestRun(request);
+
+  let workspaceRunnerSetting = vscode.workspace
+    .getConfiguration("isildur")
+    .get("testRunner") as string | undefined;
+
+  workspaceRunnerSetting = workspaceRunnerSetting
+    ? workspaceRunnerSetting.toLowerCase()
+    : "mocha";
+
+  const flatTestItems = flattenArray(testController.items);
+
+  flatTestItems.forEach((item) => {
+    run.started(item);
+  });
+
+  const runner = new Isildur(workspaceRunnerSetting as "mocha" | "jest");
+  const results = await runner.runAllTests();
+  const resultsWithIds = generateUniqueIDs(results);
+  const flatResults = flattenResults(resultsWithIds);
+
+  flatResults.forEach((result) => {
+    const testItem = flatTestItems.find((item) => item.id === result.id);
+
+    if (testItem) {
+      if (Object.keys(result).includes("status")) {
+        const testResult = result as unknown as TestResult;
+        if (testResult.status === "pass") {
+          run.passed(testItem, testResult.duration);
+        } else if (testResult.status === "fail") {
+          run.failed(
+            testItem,
+            new vscode.TestMessage(testResult.error),
+            testResult.duration
+          );
+        } else if (testResult.status === "skipped") {
+          run.skipped(testItem);
+        }
+      }
+    }
+  });
+
+  run.end();
+};
+
+const runProfile = testController.createRunProfile(
+  "Run",
+  vscode.TestRunProfileKind.Run,
+  (request, token) => runHandler(false, request, token)
+);
+
+const flattenArray = (testItems: vscode.TestItemCollection) => {
+  let result: TestItem[] = [];
+  testItems.forEach((item) => {
+    result.push(item);
+    if (item.children) {
+      result = result.concat(flattenArray(item.children));
+    }
+  });
+  return result;
+};
+
+const flattenResults = (results: TestSuite[]) => {
+  let result: TestResultWithId[] = [];
+  results.forEach((suite) => {
+    result = result.concat(suite.tests);
+    if (suite.suites) {
+      result = result.concat(flattenResults(suite.suites));
+    }
+  });
+  return result;
+};
 
 export function deactivate() {}
