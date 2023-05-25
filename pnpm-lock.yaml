@@ -60,8 +60,8 @@ importers:
         specifier: ^0.3.0
         version: 0.3.0
       '@isildur-testing/mocha':
-        specifier: ^0.4.0
-        version: 0.4.0
+        specifier: ^0.5.0
+        version: 0.5.0
     devDependencies:
       '@types/jest':
         specifier: ^29.5.1
@@ -939,8 +939,8 @@ packages:
       '@isildur-testing/api': 0.2.1
     dev: false
 
-  /@isildur-testing/mocha@0.4.0:
-    resolution: {integrity: sha512-DzqCyxwRjUgHAoNEZhKZrJXl5gb1EGd3YxIws2bWlEc51EmDIthhrBFZsVukIuRKUO8xgzOa83Q/Bxd85aV4Bg==}
+  /@isildur-testing/mocha@0.5.0:
+    resolution: {integrity: sha512-VGqZws86LdS0UZ6FWWadytn8gK/omLmDX11Kf7yi+kaAmDuj38DmJRnIPe4Nef06UKKsLmhX3DT1iQu6416leQ==}
     dependencies:
       '@changesets/cli': 2.26.1
       '@isildur-testing/api': 0.2.1
