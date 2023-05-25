@@ -27,18 +27,23 @@ if (vscode.workspace.workspaceFolders) {
   process.chdir(vscode.workspace.workspaceFolders[0]!.uri.fsPath);
 }
 
+const configFileLocation = vscode.workspace
+  .getConfiguration("isildur")
+  .get("configFile") as string | undefined;
+
+const workspaceRunnerSetting =
+  ((
+    vscode.workspace.getConfiguration("isildur").get("testRunner") as
+      | string
+      | undefined
+  )?.toLowerCase() as "mocha" | "jest") ?? "mocha"; // Setting starts with a capital letter, but the package expects all lowercase.
+
 export async function activate() {
-  let workspaceRunnerSetting = vscode.workspace
-    .getConfiguration("isildur")
-    .get("testRunner") as string | undefined;
+  const runner = new Isildur(workspaceRunnerSetting);
 
-  workspaceRunnerSetting = workspaceRunnerSetting
-    ? workspaceRunnerSetting.toLowerCase()
-    : "mocha";
-
-  const runner = new Isildur(workspaceRunnerSetting as "mocha" | "jest");
-
-  const results = await runner.discoverAllTests();
+  const results = await runner.discover(
+    configFileLocation ? { config: configFileLocation } : undefined
+  );
 
   const resultsWithIds = generateUniqueIDs(results);
 
@@ -162,22 +167,16 @@ const runHandler = async (
 ) => {
   const run = testController.createTestRun(request);
 
-  let workspaceRunnerSetting = vscode.workspace
-    .getConfiguration("isildur")
-    .get("testRunner") as string | undefined;
-
-  workspaceRunnerSetting = workspaceRunnerSetting
-    ? workspaceRunnerSetting.toLowerCase()
-    : "mocha";
-
   const flatTestItems = flattenArray(testController.items);
 
   flatTestItems.forEach((item) => {
     run.started(item);
   });
 
-  const runner = new Isildur(workspaceRunnerSetting as "mocha" | "jest");
-  const results = await runner.runAllTests();
+  const runner = new Isildur(workspaceRunnerSetting);
+  const results = await runner.run(
+    configFileLocation ? { config: configFileLocation } : undefined
+  );
   const resultsWithIds = generateUniqueIDs(results);
   const flatResults = flattenResults(resultsWithIds);
 
@@ -187,9 +186,9 @@ const runHandler = async (
     if (testItem) {
       if (Object.keys(result).includes("status")) {
         const testResult = result as unknown as TestResult;
-        if (testResult.status === "pass") {
+        if (testResult.status === "passed") {
           run.passed(testItem, testResult.duration);
-        } else if (testResult.status === "fail") {
+        } else if (testResult.status === "failed") {
           run.failed(
             testItem,
             new vscode.TestMessage(testResult.error),

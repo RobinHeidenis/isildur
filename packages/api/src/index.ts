@@ -1,4 +1,4 @@
-import { BaseTestSuite, IsildurTestRunner, TestResult, TestResultStatus, TestSuite } from "~/interface";
+import { BaseTestResult, BaseTestSuite, FailingTestResult, IsildurTestRunner, PassingTestResult, SkippedTestResult, TestResult, TestResultStatus, TestRunnerOptions, TestSuite } from "~/interface.js";
 
 export type {
     TestResult,
@@ -6,4 +6,9 @@ export type {
     TestResultStatus,
     TestSuite,
     BaseTestSuite,
+    TestRunnerOptions,
+    BaseTestResult,
+    FailingTestResult,
+    PassingTestResult,
+    SkippedTestResult,
 };
