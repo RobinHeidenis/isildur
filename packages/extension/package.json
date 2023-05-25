@@ -2,7 +2,7 @@
   "name": "isildur-testing",
   "displayName": "Isildur",
   "description": "Display and run your tests, no matter what runner you're using! (currently support Jest and Mocha)",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.78.0"
   },

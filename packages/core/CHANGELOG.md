@@ -1,5 +1,11 @@
 # @isildur-testing/core
 
+## 0.2.1
+
+### Patch Changes
+
+- b9e3431: Bumped implementation packages to their latest versions
+
 ## 0.2.0
 
 ### Minor Changes
