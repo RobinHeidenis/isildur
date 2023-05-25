@@ -170,11 +170,6 @@ const runHandler = async (
     ? workspaceRunnerSetting.toLowerCase()
     : "mocha";
 
-  if (workspaceRunnerSetting === "mocha") {
-    run.end();
-    throw new Error("Mocha doesn't work and i don't know why");
-  }
-
   const flatTestItems = flattenArray(testController.items);
 
   flatTestItems.forEach((item) => {
