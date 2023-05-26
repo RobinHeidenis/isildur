@@ -1,4 +1,4 @@
-import { Isildur } from "~/isildur";
+import { Isildur } from "~/isildur.js";
 
 export { Isildur };
 

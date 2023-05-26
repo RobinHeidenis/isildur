@@ -23,6 +23,10 @@
               "Mocha"
             ],
             "description": "The test runner you're using"
+          },
+          "isildur.configFile": {
+            "type": "string",
+            "description": "Custom location for your test runner configuration file"
           }
         }
       }

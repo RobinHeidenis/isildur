@@ -1,9 +1,13 @@
-export interface IsildurTestRunner {
-    runAllTests(): Promise<TestSuite[]>;
-    discoverAllTests(): Promise<BaseTestSuite[]>;
+export interface TestRunnerOptions {
+    config: string;
 }
 
-export type TestResultStatus = 'pass' | 'fail' | 'skipped';
+export interface IsildurTestRunner {
+    run(options?: TestRunnerOptions): Promise<TestSuite[]>;
+    discover(options?: TestRunnerOptions): Promise<BaseTestSuite[]>;
+}
+
+export type TestResultStatus = 'passed' | 'failed' | 'skipped';
 
 export interface BaseTestSuite {
     name: string;
@@ -14,31 +18,30 @@ export interface BaseTestSuite {
 
 export interface TestSuite extends BaseTestSuite {
     duration: number;
-    numFailing: number;
-    numPassing: number;
-    numSkipped: number;
     suites: TestSuite[];
     tests: TestResult[];
 }
 
-interface BaseTestResult {
+export interface BaseTestResult {
     name: string;
     status: TestResultStatus;
     file: string;
+}
+
+export interface PassingTestResult extends BaseTestResult {
+    status: 'passed';
     duration: number;
 }
 
-interface PassingTestResult extends BaseTestResult {
-    status: 'pass';
-}
-
-interface FailingTestResult extends BaseTestResult {
-    status: 'fail';
+export interface FailingTestResult extends BaseTestResult {
+    status: 'failed';
     error: string;
+    duration: number;
 }
 
-interface SkippedTestResult extends BaseTestResult {
+export interface SkippedTestResult extends BaseTestResult {
     status: 'skipped';
+    duration: number;
 }
 
 export type TestResult = PassingTestResult | FailingTestResult | SkippedTestResult;
