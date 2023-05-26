@@ -18,9 +18,6 @@ export interface BaseTestSuite {
 
 export interface TestSuite extends BaseTestSuite {
     duration: number;
-    numFailing: number;
-    numPassing: number;
-    numSkipped: number;
     suites: TestSuite[];
     tests: TestResult[];
 }
@@ -29,20 +26,22 @@ export interface BaseTestResult {
     name: string;
     status: TestResultStatus;
     file: string;
-    duration: number;
 }
 
 export interface PassingTestResult extends BaseTestResult {
     status: 'passed';
+    duration: number;
 }
 
 export interface FailingTestResult extends BaseTestResult {
     status: 'failed';
     error: string;
+    duration: number;
 }
 
 export interface SkippedTestResult extends BaseTestResult {
     status: 'skipped';
+    duration: number;
 }
 
 export type TestResult = PassingTestResult | FailingTestResult | SkippedTestResult;
