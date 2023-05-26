@@ -1,10 +1,18 @@
 export interface TestRunnerOptions {
     config: string;
-}
+    bail: boolean;
+    diff: boolean;
+    allowNoTests: boolean;
+    testNameFilter: string;
+    timeout: number;
+    maxWorkers: number;
+} // These are all the options Mocha and Jest have in common
+
+export type PartialTestRunnerOptions = Partial<TestRunnerOptions>;
 
 export interface IsildurTestRunner {
-    run(options?: TestRunnerOptions): Promise<TestSuite[]>;
-    discover(options?: TestRunnerOptions): Promise<BaseTestSuite[]>;
+    run(options?: PartialTestRunnerOptions): Promise<TestSuite[]>;
+    discover(options?: PartialTestRunnerOptions): Promise<BaseTestSuite[]>;
 }
 
 export type TestResultStatus = 'passed' | 'failed' | 'skipped';

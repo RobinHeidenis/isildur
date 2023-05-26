@@ -1,4 +1,5 @@
-import type { BaseTestSuite, TestRunnerOptions, TestSuite } from '@isildur-testing/api';
+import type { BaseTestSuite, TestSuite } from '@isildur-testing/api';
+import { PartialTestRunnerOptions } from '@isildur-testing/api';
 import { JestRunner } from '@isildur-testing/jest';
 import { MochaRunner } from '@isildur-testing/mocha';
 import { CoreIsildurClass, TestRunner } from '~/interface.js';
@@ -15,11 +16,11 @@ export class Isildur implements CoreIsildurClass {
         }
     }
 
-    async run(options?: TestRunnerOptions): Promise<TestSuite[]> {
+    async run(options?: PartialTestRunnerOptions): Promise<TestSuite[]> {
         return this.testRunner.run(options);
     }
 
-    async discover(options?: TestRunnerOptions): Promise<BaseTestSuite[]> {
+    async discover(options?: PartialTestRunnerOptions): Promise<BaseTestSuite[]> {
         return this.testRunner.discover(options);
     }
 }
