@@ -6,6 +6,7 @@ export interface TestRunnerOptions {
     testNameFilter: string;
     timeout: number;
     maxWorkers: number;
+    runnerOptions: Record<string, unknown>; // Runner options for specific test runners
 } // These are all the options Mocha and Jest have in common
 
 export type PartialTestRunnerOptions = Partial<TestRunnerOptions>;
