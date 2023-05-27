@@ -1,5 +1,12 @@
 # @isildur-testing/api
 
+## 0.3.0
+
+### Minor Changes
+
+- 4e773f2: Changed name for discoverAllTests to discover and runAllTests to run, implemented setting a set of standard test runner options, and custom test runner options
+- 269d531: Implemented passing a config file location to runner methods, exported all interfaces
+
 ## 0.2.1
 
 ### Patch Changes

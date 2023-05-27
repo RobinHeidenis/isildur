@@ -1,6 +1,6 @@
 {
   "name": "@isildur-testing/core",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "main": "dist/index.cjs",
   "types": "dist/index.d.ts",
   "module": "dist/index.js",
@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@isildur-testing/api": "workspace:*",
-    "@isildur-testing/jest": "^0.3.0",
-    "@isildur-testing/mocha": "^0.5.0"
+    "@isildur-testing/jest": "^0.4.0",
+    "@isildur-testing/mocha": "^0.6.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",

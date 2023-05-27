@@ -4,7 +4,7 @@
   "types": "./dist/index.d.ts",
   "module": "./dist/index.mjs",
   "type": "module",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "files": [
     "dist/**",
     "CHANGELOG.md"
