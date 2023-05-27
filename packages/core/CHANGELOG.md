@@ -1,5 +1,17 @@
 # @isildur-testing/core
 
+## 0.3.0
+
+### Minor Changes
+
+- 4543535: Renamed methods to comply with new API specification, added support for passing options
+
+### Patch Changes
+
+- Updated dependencies [4e773f2]
+- Updated dependencies [269d531]
+  - @isildur-testing/api@0.3.0
+
 ## 0.2.1
 
 ### Patch Changes
