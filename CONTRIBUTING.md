@@ -3,6 +3,25 @@
 This is the contribution guide for Isildur.
 
 ## Getting Started
+1. Clone the repository
+2. Install the packages with `pnpm install`
+3. Run `pnpm run build` to build all the packages
+4. Run `pnpm run test` to run all the tests
+5. Happy coding!
+
+## Branches
+Branches follow the format of `type/name`, where `type` is one of the following:	
+- `feature`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation changes
+- `refactor`: Code changes that do not add a feature or fix a bug
+- `test`: Adding or updating tests
+- `chore`: Changes to the build process or auxiliary tools and libraries such as documentation generation
+
+The name of the branch should come from the issue on GitHub. It starts with the issue number, followed by a short description of the issue. For example, if the issue is `#123: Add a new feature`, the branch name would be `feature/123-add-new-feature`.
+
+## Commits
+Commits are done using `git-cz`. This is a CLI tool that helps you write conventional commits. To use it, install git-cz globally and use `git-cz` instead of `git commit` when committing. It will prompt you to fill out the commit message, and will automatically format it for you.
 
 ## Releasing
 
